@@ -11,6 +11,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import re
 import os
+import discord
 from discord import SyncWebhook
 from dotenv import load_dotenv
 
@@ -69,45 +70,48 @@ class TestSiteChecker():
             self.test_satchecker()
         print(number)
 
-        subject = "BOT FOUND SAT TEST CENTER AVAILABLE"
-        body = "A TEST CENTER IS AVAILABLE GO SIGN UP!!!! "
-        sender = "diamondjetzrule@gmail.com"
-        password = "rzaoypgdnrdumtvi"
+        # subject = "BOT FOUND SAT TEST CENTER AVAILABLE"
+        # body = "A TEST CENTER IS AVAILABLE GO SIGN UP!!!! "
+        # sender = "diamondjetzrule@gmail.com"
+        # password = "rzaoypgdnrdumtvi"
 
-        message = MIMEMultipart()
-        message["From"] = sender
-        message["To"] = email
-        message["Subject"] = subject
+        # message = MIMEMultipart()
+        # message["From"] = sender
+        # message["To"] = email
+        # message["Subject"] = subject
 
-        # Add body to email
-        message.attach(MIMEText(body, "plain"))
+        # # Add body to email
+        # message.attach(MIMEText(body, "plain"))
 
-        # Convert message to string
-        text = message.as_string()
+        # # Convert message to string
+        # text = message.as_string()
         if number > 0:
             try: 
-                server = smtplib.SMTP("smtp.gmail.com", 587)
-                server.starttls()
-                server.login(sender, password)
-                server.sendmail(sender, email, text)
-
-                server.sendmail(sender, email, text)
-                emailSent = True
                 webhook = SyncWebhook.from_url(url)
-                webhook.send("A TEST CENTER IS AVAILABLE GO SIGN UP!!!")
+                embed = discord.Embed(title="SAT Test Center Available", description="A test center is available close to you!!!", color=0x00ff00)
+                webhook.send("@everyone",embed=embed, allowed_mentions=discord.AllowedMentions(everyone=True))
+                
+                # server = smtplib.SMTP("smtp.gmail.com", 587)
+                # server.starttls()
+                # server.login(sender, password)
+                # server.sendmail(sender, email, text)
+
+                # server.sendmail(sender, email, text)
             except Exception as e:
                 print(f"Error: {e}")
 
             finally:
-                server.quit()
                 program.teardown_method()
 
 
 
 
-program = TestSiteChecker()
-program.setup_method()
-while True:
-    program.test_satchecker()
-    time.sleep(30)
+if __name__ == "__main__":
+    program = TestSiteChecker()
+    program.setup_method()
+    print("Setting up...")
+    time.sleep(5)
+    while True:
+        program.test_satchecker()
+        time.sleep(10)
 
