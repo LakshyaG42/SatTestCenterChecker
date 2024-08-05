@@ -10,7 +10,6 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import re
-import os
 import discord
 from discord import SyncWebhook
 from dotenv import load_dotenv
@@ -18,10 +17,9 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-url = os.getenv("WEBHOOK_URL")
-email = "siyagour105@gmail.com" 
-zip_code = "08817" 
-radius = "22.5"
+url = "https://discord.com/api/webhooks/1269454952980414474/CHZd2JwcKqPphSuJ4NaKt1bpAsppC6kqSh9vvpsa1pzoJ1_gX2xgHmV84M1bXWeajtwm"
+zip_code = "08844" 
+radius = "16"
 class TestSiteChecker():
     def setup_method(self):
         service = Service('chromedriver.exe') 
@@ -70,21 +68,7 @@ class TestSiteChecker():
             self.test_satchecker()
         print(number)
 
-        # subject = "BOT FOUND SAT TEST CENTER AVAILABLE"
-        # body = "A TEST CENTER IS AVAILABLE GO SIGN UP!!!! "
-        # sender = "diamondjetzrule@gmail.com"
-        # password = "rzaoypgdnrdumtvi"
 
-        # message = MIMEMultipart()
-        # message["From"] = sender
-        # message["To"] = email
-        # message["Subject"] = subject
-
-        # # Add body to email
-        # message.attach(MIMEText(body, "plain"))
-
-        # # Convert message to string
-        # text = message.as_string()]
         
         if number > 0:
             try: 
@@ -92,13 +76,6 @@ class TestSiteChecker():
                 webhook = SyncWebhook.from_url(url)
                 embed = discord.Embed(title="SAT Test Center Available", description="A test center is available close to you!!!", color=0x00ff00)
                 webhook.send("@everyone",embed=embed, allowed_mentions=discord.AllowedMentions(everyone=True))
-                
-                # server = smtplib.SMTP("smtp.gmail.com", 587)
-                # server.starttls()
-                # server.login(sender, password)
-                # server.sendmail(sender, email, text)
-
-                # server.sendmail(sender, email, text)
             except Exception as e:
                 print(f"Error: {e}")
 
